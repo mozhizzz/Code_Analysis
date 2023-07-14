@@ -1,8 +1,8 @@
 import os
-
 from tkinter import filedialog
 
-class CfileClass():
+
+class CFileClass:
     def __init__(self, file_path):
         self._file_path = file_path
         self._function_list = []
@@ -12,7 +12,45 @@ class CfileClass():
         self._include_file_list = []
 
     def parse_file(self):
-        pass
+        # 解析文件逻辑
+        # 这里只是示例，需要根据实际需求实现具体的解析逻辑
+        with open(self._file_path, "r") as file:
+            for line in file:
+                # 解析函数
+                if line.startswith("function"):
+                    function_name = line.split()[1]
+                    self._function_list.append(function_name)
+                    self._function_dict[function_name] = line.strip()
+
+                # 解析全局变量
+                if line.startswith("global_variable"):
+                    variable_name = line.split()[1]
+                    self._global_variable_list.append(variable_name)
+
+                # 解析宏定义
+                if line.startswith("#define"):
+                    macro_name = line.split()[1]
+                    self._macro_define_list.append(macro_name)
+
+                # 解析包含文件
+                if line.startswith("#include"):
+                    include_file = line.split()[1]
+                    self._include_file_list.append(include_file)
+
+    def get_function_list(self):
+        return self._function_list
+
+    def get_function_dict(self):
+        return self._function_dict
+
+    def get_global_variable_list(self):
+        return self._global_variable_list
+
+    def get_macro_define_list(self):
+        return self._macro_define_list
+
+    def get_include_file_list(self):
+        return self._include_file_list
 
 
 # step 1: select folder
